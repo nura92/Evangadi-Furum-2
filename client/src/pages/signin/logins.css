@@ -1,0 +1,63 @@
+
+.small-text {
+  color: #fe8303;
+  font-size: 14px;
+ }
+#home .headers {
+  margin: 10px 0 0;
+}
+#home .signs{
+  margin: 10px 0 0;
+}
+.title-h2{
+  font-size: 45px;
+  color: #4b456f;
+  line-height: 52px;
+  font-weight: 600;;
+}
+p.font-p {
+  color: #656565;
+  font-size: 15px;
+  line-height: 28px;
+  margin-top: 20px;
+}
+/* /*----------------------------------------
+  Buttons
+  ----------------------------------------*/
+  
+  .btn-blue {
+    color: #fff !important;
+    background-color: #fe8402;
+    border: none;
+    font-size: 15px;
+    line-height: 25px;
+    border-radius: 6px;
+    text-transform: uppercase;
+    padding: 8px 25px !important;
+    text-decoration: none;
+  }
+  #home{
+    background-image: url('../../assets/img/bg.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .description_sign{
+    text-align: center;
+    width: 100%;
+    height: 500px;
+    margin: 120px auto;
+    margin-bottom: 100px
+  }
+  
+.email{
+display: flex;
+align-items: center;
+}
+  .input{
+    position: relative;
+  }
+  .eyes{
+    position: absolute;
+    left: 500px;
+  }

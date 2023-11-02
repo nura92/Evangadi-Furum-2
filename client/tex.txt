@@ -1,0 +1,377 @@
+import React, { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import axios from "./axiosConfig";
+// import AccountCircleTwoToneIcon from "@mui/icons-material/AccountCircleTwoTone";
+import { CgProfile } from "react-icons/cg";
+import './SingleQuestion.css'
+function SingleQuestion() {
+	const navigate = useNavigate();
+	const { questionid } = useParams();
+	const [question, setQuestion] = useState("");
+	const [description, setDescription] = useState("");
+	const [answers, setAnswers] = useState([]);
+	const [newAnswer, setNewAnswer] = useState("");
+	const [alertMessage, setAlertMessage] = useState("");
+	// useEffect(() => {
+		const fetchData = async () => {
+			try {
+				const token = localStorage.getItem("token");
+
+				// Fetch the question details
+				const questionResponse = await axios.get(
+					/questions/question/${questionid},
+					{
+						headers: {
+							Authorization: "Bearer " + token,
+						},
+					}
+				);
+				console.log(questionResponse);
+				setQuestion(questionResponse.data.title.toUpperCase());
+				setDescription(questionResponse.data.description.toLowerCase());
+
+				// Fetch answers for the specific question
+				const response = await axios.get(/answers/all-answers/${questionid}, {
+					headers: {
+						Authorization: "Bearer " + token,
+					},
+				});
+
+				if (response.data.msg) {
+					alert("Success message: " + response.data.msg);
+				}
+				const answersArray = Object.values(response.data);
+				setAnswers(answersArray);
+				console.log(answersArray);
+				// setAnswers(Object.values(response.data));
+				console.log(response);
+			} catch (error) {
+				console.error("Error fetching question or answers:", error);
+			}
+	};
+	
+  useEffect(() => {
+		// Fetch data when the component mounts or when questionid changes
+		fetchData();
+	}, [questionid]);
+
+	// 	fetchData();
+	// }, [questionid]);
+
+	const handlePostAnswer = async () => {
+		try {
+			const token = localStorage.getItem("token");
+			const response = await axios.post(
+				/answers/question/${questionid},
+				{ answer: newAnswer },
+				{
+					headers: {
+						Authorization: "Bearer " + token,
+					},
+				}
+			);
+
+			if (response.data.msg) {
+				setAlertMessage("Answer posted successfully." + response.data.msg);
+			}
+			fetchData();
+			// const newAnswerData = {
+			// 	answer: newAnswer,
+			// 	// You can include other fields here if needed
+			// };
+			// setAnswers([...answers, newAnswerData]);
+			setAnswers([...answers, { answer: newAnswer }]);
+			console.log(answers);
+			setNewAnswer("");
+			setTimeout(() => {
+				setAlertMessage("");
+			}, 3000);
+		} catch (error) {
+			console.error("Error posting answer:", error);
+		}
+	};
+	// fetchData();
+	return (
+		<section className="forbackGround">
+			<div className="container">
+				<div className="thewhole">
+					<div className="max-width">
+						<h1 className="titlequestion">QUESTION</h1>
+						<h4 className="question">{question}</h4>
+						<span className="description">{description}</span>
+						<div>
+							<h1 className="answerTitle">Answers From the Community</h1>
+						</div>
+						<ul className="QuestionList scrollable-div">
+							{answers[0]?.map((answer, index) => (
+								<li key={answer.answerid} className="AnswerItem">
+									<div className="QuestionInfo">
+										<div className="flex-row">
+											<CgProfile className="Avatar" />
+											<span className="username">{answer.username}</span>
+										</div>
+										<div>{answer.answer}</div>
+									</div>
+								</li>
+							))}
+							<div className="usernames">
+								{answers[1] && (
+									<li key="newAnswer" className="AnswerItem">
+										<div>
+											<span className="username">{answers[1].answer} </span>
+										</div>
+									</li>
+								)}
+							</div>
+						</ul>
+
+						<div>
+							{alertMessage && <div className="alert">{alertMessage}</div>}
+							<textarea
+								style={{ width: "100%", height: "100px" }}
+								value={newAnswer}
+								onChange={(e) => setNewAnswer(e.target.value)}
+								placeholder="Your answer..."
+							/>
+							<button
+								onClick={handlePostAnswer}
+								className="blue m-r"
+								style={{ margin: "10px" }}
+							>
+								Post Answer
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	);
+}
+
+
+
+
+export default SingleQuestion;
+
+
+
+	// const newAnswerData = {
+		// answer: newAnswer,
+		// You can include other fields here if needed
+	// };
+	// setAnswers([...answers, newAnswerData]);
+
+
+
+
+
+
+
+
+
+
+
+  import React, { useContext, useEffect } from "react";
+import "./Header.css";
+import { Link, useNavigate } from "react-router-dom";
+import { AppState } from "../App";
+
+function Header() {
+	const navigate= useNavigate()
+	const { user, setuser } = useContext(AppState);
+
+	const logout = () => {
+		// Clear the user object
+		setuser(null);
+
+		// Clear token from localStorage
+		localStorage.setItem("token", "");
+		navigate("/login")
+	};
+	  useEffect(() => {
+			// Check if a token is present in localStorage
+			const storedToken = localStorage.getItem("token");
+
+			if (storedToken) {
+				// If a token is present, set the user as logged in
+				setuser({});
+			} else {
+				// If no token is present, set the user as logged out
+				setuser(null);
+			}
+		}, [setuser]);
+
+	return (
+		<div>
+			<div className="mainHeaderWrapper">
+				<div>
+					{/* <Link to="/login"> */}
+						<img
+							className="evangadiImage"
+							src="https://www.evangadi.com/themes/humans//assets/images/misc/evangadi-logo-home.png"
+							alt="evangadi logo"
+						/>
+					{/* </Link> */}
+				</div>
+				<div className="p-right">
+					<ul className="lists">
+						<li onClick={() => (user ? navigate("/home") : navigate("/login")) }>
+							Home
+						</li>
+
+						<li>How it works</li>
+
+						{user ? (
+							<span onClick={logout} className="tomblue">
+								SIGN OUT
+							</span>
+						) : (
+							<Link to="/login">
+								<span className="tomblue">SIGN IN</span>
+							</Link>
+						)}
+					</ul>
+				</div>
+			</div>
+		</div>
+	);
+}
+
+
+
+
+
+
+
+login eye feuture
+<div className="password">
+										{/* <span>Password: </span> */}
+										<input
+											type={showPassword ? "text" : "password"}
+											ref={passwordDom}
+											placeholder="password"
+										/>
+										<span onClick={togglePasswordVisibility}>
+											{showPassword ? (
+												<FaRegEye className="eye" />
+											) : (
+												<FaRegEyeSlash className="eye" />
+											)}
+										</span>
+									</div>
+
+
+import { FaRegEyeSlash } from "react-icons/fa6";
+import { FaRegEye } from "react-icons/fa6";
+
+const [showPassword, setShowPassword] = useState(false);
+
+		const togglePasswordVisibility = () => {
+			setShowPassword(!showPassword);
+		};
+
+
+export default Header;
+
+
+
+awwb. hi nura username without refreshing the page is working for me  by updating  the user data immediately after a successful login. try this way, ... line 7,9, and 42... import React, { useContext, useRef, useState} from "react";
+import axios from "../axiosConfig";
+import { Link, useNavigate } from "react-router-dom";
+import { FaRegEyeSlash } from "react-icons/fa6";
+import { FaRegEye } from "react-icons/fa6";
+import './login.css'
+import { AppState } from "../../App";
+function Login() {
+	const { user, setuser } = useContext(AppState);
+	const navigate = useNavigate();
+	const emailDom = useRef(null);
+	const passwordDom = useRef(null);
+	const [alertMessages, setAlertMessages] = useState("");
+
+	 const [showPassword, setShowPassword] = useState(false);
+
+		const togglePasswordVisibility = () => {
+			setShowPassword(!showPassword);
+		};
+
+	async function handleSubmit(e) {
+		e.preventDefault();
+
+		const emailValue = emailDom.current.value;
+		const passwordValue = passwordDom.current.value;
+		if (!emailValue || !passwordValue) {
+			setAlertMessages("Please provide all requirs ");
+			setTimeout(() => {
+				setAlertMessages("");
+			}, 3000);
+			return;
+		}
+		
+		try {
+			const {data}=await axios.post("/users/login", {
+				email: emailValue,
+				password: passwordValue,
+			});
+			alert("logged in successfuly");
+			localStorage.setItem('token', data.token)
+			console.log(data)
+			  setuser(data);
+			navigate("/home");
+		} catch (error) {
+			alert(error?.response?.data?.message);
+			console.log(error.response);
+		}
+	}
+	return (
+		<div className="container">
+			<div className="row">
+				<div className="col-md-6">
+					<div className="mainRegisterWrapper">
+						<section className="secondRegisterWrapper">
+							<div className="joinNetwork">
+								{alertMessages && <div className="alerts">{alertMessages}</div>}
+								<h3 className="textCenter">Login to your account</h3>
+								<p className="textCenter">
+									Dont't have an account?
+									<Link to={"/register"}>
+										<span className="orange"> Create a new account</span>
+									</Link>
+								</p>
+							</div>
+							<form onSubmit={handleSubmit}>
+								{/* <h1>SignUp</h1> */}
+								<div className="inputs">
+									<div>
+										{/* <span>Email: </span> */}
+										<input type="email" ref={emailDom} placeholder="email" />
+									</div>
+									<div className="password">
+										{/* <span>Password: </span> */}
+										<input
+											type={showPassword ? "text" : "password"}
+											ref={passwordDom}
+											placeholder="password"
+										/>
+										<span onClick={togglePasswordVisibility}>
+											{showPassword ? (
+												<FaRegEye className="eyes" />
+											) : (
+												<FaRegEyeSlash className="eyes" />
+											)}
+										</span>
+									</div>
+								</div>
+								<button className="toblue" type="submit">
+									login
+								</button>
+							</form>
+						</section>
+					</div>
+				</div>
+			</div>
+		</div>
+	);
+}
+
+export default Login;

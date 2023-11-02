@@ -1,0 +1,80 @@
+
+.login-text{
+  margin-bottom: 10px;
+  font-size: larger;
+  font-weight:600;
+  padding-top: 10px;
+}
+.text_login{
+
+  text-align: center;
+  margin-bottom: 10px;
+  padding-top: 10px;
+  font-size: small;
+}
+.Link{
+  text-decoration: none;
+  color:#fe8402 ;
+}
+
+.input{
+  width: 100%;
+  height: 50px;
+  border-radius: 5px;
+  border: 1px solid gray;
+  display: flex;
+  text-align: start;
+  padding: 1px 10px;
+}
+.input:hover{
+  border-bottom: 3px solid #fe8402 ;
+  transform: translateX();
+  transition:cubic-bezier(0.075, 0.82, 0.165, 1), transform;
+}
+
+.forget{
+  display: flex;
+  justify-content: end;
+}
+.btn button{
+  background-color: #516cf0;
+  width: 200px;
+  border: none;
+  height: 40px;
+  border-radius: 5px;
+  color: #fff;
+}
+.btn button:hover{
+  background-color: #fe8402;
+}
+.sign{
+  text-align: center;
+  box-shadow: 4px 6px 15px rgba(158, 158, 158, 0.1);
+  width: 100%;
+  height: 500px;
+  margin: 160px auto 25px;
+  margin-bottom: 100px
+}
+.logins{
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(158, 158, 158, 0.12);
+  width: 100%;
+  height: 400px;
+  margin: 160px auto 25px;
+  margin-bottom: 100px
+}
+
+.sign_input{
+  display: flex;
+  justify-content: space-between;
+}
+.priv a{
+  color: #fe8402;
+}
+.text_evag{
+  margin-top: 150px;
+}
+.mt{
+  margin-top: 150px;
+}
+

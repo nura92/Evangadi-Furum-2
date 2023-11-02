@@ -1,0 +1,65 @@
+
+.heros{
+  margin-top: 170px; 
+}
+.n_user{
+	position: absolute;
+	right: 1%;
+  margin-right: 13px;
+}
+.blue_button {
+  background-color: #516cf0;
+  color: #fff;
+  border-radius: 50px;
+  padding: 0px 30px;
+  height: 50px;
+}
+.blue_button:hover{
+  color: black;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+
+}
+.header_border {
+  color: black;
+  font-weight: 400;
+  font-size: large;
+  margin-left: 60px;
+  padding: 10px;
+}
+.user{
+  color: rgba(184, 10, 10,0.9);
+}
+
+.search {
+  display: flex;
+  justify-content: space-between;
+}
+.search_bar {
+height: 50px;
+display: flex;
+cursor: pointer;
+padding: 10px 20px;
+background: #fff;
+border-radius: 30px;
+align-items: center;
+margin-top: 50px;
+margin-bottom: 20px;
+box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+
+}
+.search_bar:hover input{
+  width: 100%;
+}
+.search_bar input{
+  width: 0;
+  outline: none;
+  border: none;
+  font-weight: 500;
+  transition: 0.8s;
+  background: transparent;
+
+}
+.search_icon{
+  color: #1dfa;
+  font-size: 18px;
+}

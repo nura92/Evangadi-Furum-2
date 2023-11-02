@@ -1,0 +1,29 @@
+
+.btn-blue:hover {
+  color: #fe8402;
+  border-radius: 5px;
+  transition: 0.9s;
+}
+.btn-blue{
+  font-size: larger;
+  font-weight: 600;
+}
+.heade{
+  height: 100px;
+  padding: 20px;
+  background-color: black;
+}
+.header_up{
+  margin-bottom: 40px;
+}
+.links{
+  text-decoration: none;
+  color:gray;
+}
+.links:hover{
+  color: #fe8402;
+}
+.link{
+  text-decoration: none;
+  color: #fff; 
+}

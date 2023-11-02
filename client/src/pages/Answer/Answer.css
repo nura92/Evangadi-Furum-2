@@ -1,0 +1,44 @@
+.titl {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  text-align: start;
+}
+.title {
+  font-size: 30px;
+  font-weight: 600;
+  color: #022553;
+  text-align: center;
+}
+.question_titles {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size: 30px;
+  align-items: baseline;
+  margin-left: 2px;
+  font-style: italic;
+}
+.answer_icon_arrow {
+  width: 25px;
+  align-items: center;
+  text-align: start;
+}
+.question_disc {
+  font-size: 15px;
+  align-items: baseline;
+margin-left: 2px;
+font-style: italic;
+}
+.community_title {
+  border-bottom: 1px solid gray;
+  border-top: 1px solid gray;
+  padding: 10px;
+  margin-top: 20px;
+  text-align: center;
+  font-size: 35px;
+  font-weight: 600;
+  color: #022553;
+}
+.btn_answer button{
+ margin-left: 30px;
+}
