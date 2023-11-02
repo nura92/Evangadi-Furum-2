@@ -6,7 +6,7 @@ const { StatusCodes } = require("http-status-codes");
 const postQuestions = async (req, res) => {
 
   
-  const { title, description } = req.body;
+  const { title, description,tag } = req.body;
 
   if (!title || !description) {
     return res
@@ -27,8 +27,8 @@ const postQuestions = async (req, res) => {
   const question_id = uuid();
   try {
     await DbConection.query(
-      " INSERT INTO questions(questions_id,	user_id,title,Discreption ) value(?,?,?,?)",
-      [question_id, userid, title, description]
+      " INSERT INTO questions(questions_id,	user_id,title,Discreption,tag ) value(?,?,?,?,?)",
+      [question_id, userid, title, description,tag]
     );
 
     return res

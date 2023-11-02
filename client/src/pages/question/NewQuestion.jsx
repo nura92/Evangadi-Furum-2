@@ -86,9 +86,20 @@ const NewQuestion = () => {
             <input
               className="input_text_title input_text_one"
               type="text"
+              name="tag"
+              placeholder="tag"
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div>
+            <input
+              className="input_text_title input_text_one"
+              type="text"
               name="title"
               placeholder="Title"
               onChange={handleChange}
+              required
             />
           </div>
 
@@ -100,6 +111,7 @@ const NewQuestion = () => {
               name="description"
               placeholder="Question Description..."
               onChange={handleChange}
+              required
             />
           </div>
           <div className="btn">
